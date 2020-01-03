@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "addressable"
   spec.add_dependency "faraday"
   spec.add_dependency "rsolr"
-  spec.add_dependency "thumbor-versionable", "~> 0.2.3"
+  spec.add_dependency "thumbor-versionable", ">= 0.2.3", "< 0.4.0"
 
   spec.add_development_dependency "bundler", "~> 1.17"
   spec.add_development_dependency "rake", "~> 10.0"

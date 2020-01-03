@@ -7,31 +7,31 @@ PATH
       addressable
       faraday
       rsolr
-      thumbor-versionable (~> 0.2.3)
+      thumbor-versionable (>= 0.2.3, < 0.4.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
     active_model_serializers (0.8.1)
       activemodel (>= 3.0)
-    activemodel (6.0.0)
-      activesupport (= 6.0.0)
-    activesupport (6.0.0)
+    activemodel (6.0.2.1)
+      activesupport (= 6.0.2.1)
+    activesupport (6.0.2.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-      zeitwerk (~> 2.1, >= 2.1.8)
+      zeitwerk (~> 2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     awesome_print (1.8.0)
-    builder (3.2.3)
+    builder (3.2.4)
     byebug (11.0.1)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     diff-lcs (1.3)
     dotenv (2.7.5)
-    faraday (0.17.0)
+    faraday (1.0.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.1)
     formatador (0.2.5)
@@ -62,7 +62,7 @@ GEM
     mime-types (3.3)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.1009)
-    minitest (5.12.2)
+    minitest (5.13.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nenv (0.3.0)
@@ -75,7 +75,7 @@ GEM
     pry-byebug (3.7.0)
       byebug (~> 11.0)
       pry (~> 0.10)
-    public_suffix (4.0.1)
+    public_suffix (4.0.2)
     rake (10.5.0)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
@@ -99,10 +99,10 @@ GEM
     shellany (0.0.1)
     thor (0.20.3)
     thread_safe (0.3.6)
-    thumbor-versionable (0.2.7)
-    tzinfo (1.2.5)
+    thumbor-versionable (0.3.1)
+    tzinfo (1.2.6)
       thread_safe (~> 0.1)
-    zeitwerk (2.2.0)
+    zeitwerk (2.2.2)
 
 PLATFORMS
   ruby
