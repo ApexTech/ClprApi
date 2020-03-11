@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/ApexTech/GfrImageTransformer
-  revision: 6d922fda963a564ee491f7c4a912d9cf222c6283
+  revision: f849526460cfe064bc41f2c1f8ffd50131069353
   specs:
     gfr_image_transformer (0.1.0)
       image_size (~> 2.0)
