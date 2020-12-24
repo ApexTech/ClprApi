@@ -37,7 +37,7 @@ GEM
     concurrent-ruby (1.1.7)
     diff-lcs (1.4.4)
     dotenv (2.7.6)
-    faraday (1.1.0)
+    faraday (1.2.0)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
     ffi (1.11.1)
