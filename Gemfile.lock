@@ -56,8 +56,8 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
-    httparty (0.18.1)
-      mime-types (~> 3.0)
+    httparty (0.21.0)
+      mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
@@ -67,9 +67,7 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.10)
     lumberjack (1.0.13)
     method_source (1.0.0)
-    mime-types (3.3.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2020.0512)
+    mini_mime (1.1.2)
     minitest (5.14.2)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -118,7 +116,7 @@ PLATFORMS
 DEPENDENCIES
   ClprApi!
   awesome_print
-  bundler (~> 1.17)
+  bundler (~> 2.2)
   dotenv
   gfr_image_transformer!
   guard-rspec
