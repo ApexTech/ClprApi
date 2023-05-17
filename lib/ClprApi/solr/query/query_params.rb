@@ -31,7 +31,7 @@ module ClprApi
         end
 
         def search_filter
-          "( ( ( title_t:'#{search_param}' )^5.5 OR ( description_s:'#{search_param}' )^2.5 OR ( id:*#{search_param}* )^1.0 ) )" if search_param.present?
+          "( ( ( title_s:'#{search_param}' )^5.5 OR ( description_s:'#{search_param}' )^2.5 OR ( id:*#{search_param}* )^1.0 ) )" if search_param.present?
         end
 
         def category_negation_filter

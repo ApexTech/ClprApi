@@ -74,6 +74,10 @@ module ClprApi
         object.starts_on || object.created_at
       end
 
+      def glo_3d_id
+        object.glo_3d_id || ""
+      end
+
       def status
         object.status || "active"
       end
