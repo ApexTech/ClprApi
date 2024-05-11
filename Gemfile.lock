@@ -12,7 +12,7 @@ PATH
       active_model_serializers (= 0.8.1)
       activesupport
       addressable
-      faraday
+      faraday (= 1.1.0)
       rsolr
 
 GEM
