@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "active_model_serializers", "0.8.1"
   spec.add_dependency "activesupport"
   spec.add_dependency "addressable"
-  spec.add_dependency "faraday"
+  spec.add_dependency "faraday", "1.1.0"
   spec.add_dependency "rsolr"
 
   spec.add_development_dependency "bundler", "~> 2.2"
