@@ -131,7 +131,7 @@ PLATFORMS
 DEPENDENCIES
   ClprApi!
   awesome_print
-  bundler (~> 2.2)
+  bundler (~> 1.17)
   dotenv
   gfr_image_transformer!
   guard-rspec
@@ -141,4 +141,4 @@ DEPENDENCIES
   rspec (~> 3.0)
 
 BUNDLED WITH
-   2.2.33
+   1.17.3
