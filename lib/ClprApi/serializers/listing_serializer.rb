@@ -43,9 +43,19 @@ module ClprApi
       end
 
       def extra_fields
-        @extra_fields ||= attrs.fetch("extra_fields_metadata", []).map { |field|
-          Support::ExtraField.new(JSON.parse(field))
-        }
+        # Intentar obtener extra_fields como key directa
+        direct_extra_fields = get_raw_extra_fields
+        
+        if direct_extra_fields.present?
+          # Si existe como key directa, procesar y retornar
+          custom_result = process_direct_extra_fields(direct_extra_fields)
+          custom_result
+        else
+          # Fallback al método original que usa extra_fields_metadata
+          @extra_fields ||= attrs.fetch("extra_fields_metadata", []).map { |field|
+            Support::ExtraField.new(JSON.parse(field))
+          }
+        end
       end
 
       def main_image_url
@@ -91,6 +101,104 @@ module ClprApi
           "_id"
         elsif field_name_parts.last == "im" && field_name_parts[-2] != "id"
           "_ids"
+        end
+      end
+
+      def get_raw_extra_fields
+        # Intentar obtener extra_fields de diferentes fuentes
+        # 1. Buscar en attrs.extra_fields (como en el JSON que vimos)
+        if attrs&.dig("extra_fields")
+          result = attrs["extra_fields"]
+          return result
+        end
+        
+        # 2. Buscar en raw_item
+        if instance_variable_defined?(:@raw_item)
+          result = @raw_item["extra_fields"]
+          return result if result.present?
+        end
+        
+        # 3. Buscar en raw_items
+        if instance_variable_defined?(:@raw_items)
+          raw_item = @raw_items.find { |item| item["listing_id"] == attrs["id"].to_i }
+          result = raw_item&.dig("extra_fields")
+          return result if result.present?
+        end
+        
+        # 4. Buscar en métodos públicos
+        if respond_to?(:raw_item) && raw_item
+          result = raw_item["extra_fields"]
+          return result if result.present?
+        end
+        
+        if respond_to?(:raw_items) && raw_items
+          raw_item = raw_items.find { |item| item["listing_id"] == attrs["id"].to_i }
+          result = raw_item&.dig("extra_fields")
+          return result if result.present?
+        end
+        
+        nil
+      end
+
+      def process_direct_extra_fields(direct_extra_fields)
+        # Buscar metadata si está disponible
+        metadata_raw = attrs["extra_fields_metadata"] || []
+        # Parsear cada string JSON a hash
+        metadata = metadata_raw.map { |m| m.is_a?(String) ? JSON.parse(m) : m }
+        
+        direct_extra_fields.map do |field_data|
+          if field_data.is_a?(Hash)
+            id = field_data["id"] || field_data[:id]
+            meta_hash = metadata.find { |m| m["id"] == id } || {}
+            type = meta_hash["type"] || field_data["type"] || field_data[:type] || "string"
+            
+            # Lógica combinada para el valor
+            if type == "optionlist"
+              raw_value = attrs[id] if attrs
+              value = (!raw_value.nil? && raw_value != "") ? raw_value : meta_hash["value"]
+            else
+              value = meta_hash["value"]
+            end
+            value = "No disponible" if value.nil? || value == ""
+            
+            # Buscar el label en la metadata
+            label = meta_hash["label"] || field_data["label"] || field_data[:label] || id.to_s.humanize
+            primary = field_data["primary"] || field_data[:primary] || false
+            slug = field_data["slug"] || field_data[:slug] || value.to_s.parameterize
+
+            init_attrs = {
+              "id" => id,
+              "label" => label,
+              "type" => type,
+              "primary" => primary,
+              "value" => value,
+              "slug" => slug
+            }
+            Support::ExtraField.new(init_attrs)
+          else
+            id = field_data.to_s
+            meta_hash = metadata.find { |m| m["id"] == id } || {}
+            type = meta_hash["type"] || "string"
+            
+            if type == "optionlist"
+              raw_value = attrs[id] if attrs
+              value = (!raw_value.nil? && raw_value != "") ? raw_value : meta_hash["value"]
+            else
+              value = meta_hash["value"]
+            end
+            value = "No disponible" if value.nil? || value == ""
+            label = meta_hash["label"] || id.humanize
+            
+            init_attrs = {
+              "id" => id,
+              "label" => label,
+              "type" => type,
+              "primary" => false,
+              "value" => value,
+              "slug" => value.to_s.parameterize
+            }
+            Support::ExtraField.new(init_attrs)
+          end
         end
       end
     end
